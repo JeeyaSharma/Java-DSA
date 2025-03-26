@@ -53,7 +53,7 @@ Sample Output 2
 
  */
 import java.util.*;
-public class SpiralMatrixTraversal {
+public class SpiralMatrixTraversal{
     public static void main(String[] args){
         Scanner S = new Scanner(System.in);
         System.out.print("Enter number of rows: ");
@@ -61,31 +61,35 @@ public class SpiralMatrixTraversal {
         System.out.print("Enter number of columns: ");
         int cols = S.nextInt();
         int[][] arr = new int[rows][cols];
-        System.out.println("Enter matrix elements: ");
+        System.out.println("Enter array elements:");
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++){
                 arr[i][j]=S.nextInt();
             }
         }
-        System.out.println("Entered Matrix:");
-        for(int i=0;i<rows;i++){
-            for(int j=0;j<cols;j++){
-                System.out.print(arr[i][j]+" ");
+
+        int top=0,bottom=rows-1,left=0,right=cols-1;
+        while(top<=bottom && left<=right){
+            for(int i=left;i<=right;i++){
+                System.out.println(arr[top][i]);
             }
-            System.out.println();
-        }
-        System.out.println("Spiral Matrix:");
-        for(int j=0;j<cols;j++){
-            System.out.println(arr[0][j]);
-        }
-        for(int i=1;i<rows;i++){
-            System.out.println(arr[i][cols-1]);
-        }
-        for(int j=cols-2;j>=0;j--){
-            System.out.println(arr[rows-1][j]);
-        }
-        for(int j=0;j<cols-1;j++){
-            System.out.println(arr[rows/2][j]);
+            top++;
+            for(int i=top;i<=bottom;i++){
+                System.out.println(arr[i][right]);
+            }
+            right--;
+            if(top<=bottom){
+                for(int i=right;i>=left;i--){
+                    System.out.println(arr[bottom][i]);
+                }
+                bottom--;
+            }
+            if(left<=right){
+                for(int i=bottom;i>=top;i--){
+                    System.out.println(arr[i][left]);
+                }
+                left++;
+            }
         }
         S.close();
     }
