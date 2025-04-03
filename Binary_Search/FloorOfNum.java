@@ -7,8 +7,34 @@ Take care for both asc and desc arrays
 
  import java.util.*;
  public class FloorOfNum{
-    static int FindFloor(int[] arr, int target){
-        
+    static int findFloor(int[] arr, int target){
+        int start=0,end=arr.length-1,floor=-1;
+
+        boolean isAsc = arr[start] < arr[end];
+        while(start<=end){
+            int mid=start+(end-start)/2;
+            if(arr[mid]==target){
+                return arr[mid];
+            }
+            if(isAsc){
+                if(arr[mid]<target){
+                    start=mid+1;
+                    floor=arr[mid];
+                }
+                else if(arr[mid]>target){
+                    end=mid-1;
+                }
+            }else{
+                if(arr[mid]>target){
+                    start=mid+1;
+                }else if(arr[mid]<target){
+                    floor=arr[mid];
+                    end=mid-1;
+                }
+            }
+            
+        }
+        return floor;
     }
     public static void main(String[] args){
         Scanner S = new Scanner(System.in);
@@ -21,6 +47,7 @@ Take care for both asc and desc arrays
         }
         System.out.print("Enter target value: ");
         int target = S.nextInt();
+        System.out.println("Floor of target: "+findFloor(arr, target));
         S.close();
     }
  }
