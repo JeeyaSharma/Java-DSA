@@ -10,20 +10,35 @@ Input : exp = “[(])”
 Output : false
  */
 public class Recursion_40 {
-    private static boolean isBalanced(String str){
-        return isBalancedHelper(str, 0, 0);
+    private static char findClosing(char ch){
+        if(ch == '(') return ')';
+        if(ch == '[') return ']';
+        if(ch == '{') return '}';
+        return 0;
     }
-    private static boolean isBalancedHelper(String str, int idx, int open){
-        if(idx >= str.length()){
-            if(open==0) return true;
-            else return false;
-        }
-        if(str.charAt(idx) == '('||str.charAt(idx)=='['||str.charAt(idx)=='{') open++;
-        else open--;
+    private static boolean isBalanced(String str){
+        if(str.length()==0) return true;
+        if(str.length()==1) return false;
+        char first = str.charAt(0);
+        if(first=='}'||first==']'||first==')') return false;
 
-        return isBalancedHelper(str, idx+1, open);
+        char closing = findClosing(first);
+        int count = 0;
+        int i;
+        for(i = 1;i<str.length();i++){
+            if(str.charAt(i)==first) count++;
+            else if(str.charAt(i)==closing){
+                if(count==0) break;
+                count--;
+            }
+        }
+        if(i==str.length()) return false;
+        String inside = str.substring(1, i);
+        String remaining = str.substring(i+1);
+
+        return isBalanced(inside) && isBalanced(remaining);
     }
     public static void main(String[] args){
-        System.out.println(isBalanced("[()]{}{[()()]()}"));
+        System.out.println(isBalanced("()"));
     }
 }

@@ -1,8 +1,5 @@
 package recursion;
 
-import java.util.ArrayList;
-import java.util.List;
-
 // Print the count of subsequences with sum K
 public class Recursion_32 {
    private static int countSubsequenceWithSumK(int[] arr, int idx, int k, int sum){
