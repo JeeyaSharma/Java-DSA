@@ -1,30 +1,23 @@
 package binary_tree;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
 
-// Iterative Inorder traversal
-public class Code_8 {
-    private static List<Integer> iterativeInorder(Node root){
-        List<Integer> ans = new LinkedList<Integer>();
-        if(root == null) return ans;
+// Write iterative inorder code to print the inorder traversal
+public class Code_9 {
+    private static void printInorderIterative(Node root){
         Stack<Node> st = new Stack<Node>();
         Node curr = root;
         while(true){
             if(curr!=null){
                 st.push(curr);
-                curr = curr.left;
+                curr=curr.left;
             }else{
-                if(st.isEmpty()){
-                    break;
-                }
+                if(st.isEmpty()) break;
                 curr = st.pop();
-                ans.add(curr.data);
+                System.out.print(curr.data+" ");
                 curr = curr.right;
             }
         }
-        return ans;
     }
     public static void main(String[] args) {
         Node root_1 = new Node(1);
@@ -42,6 +35,6 @@ public class Code_8 {
         root_4.left = root_5;
         root_4.right = root_6;
 
-        System.out.println(iterativeInorder(root_1));
+        printInorderIterative(root_1);
     }
 }
