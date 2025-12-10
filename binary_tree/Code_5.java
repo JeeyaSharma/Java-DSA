@@ -9,7 +9,6 @@ public class Code_5 {
     private static List<List<Integer>> levelOrder(Node root){
         Queue<Node> q = new LinkedList<Node>();
         List<List<Integer>> ans = new LinkedList<List<Integer>>();
-        if(root==null) return ans;
         q.offer(root);
         while(!q.isEmpty()){
             int level = q.size();
