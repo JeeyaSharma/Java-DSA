@@ -1,26 +1,28 @@
 package arrays.easy;
-
-import java.util.HashMap;
-
-// Given an array nums of size n and an integer k, find the length of the longest sub-array that sums to k. If no such sub-array exists, return 0.
+// Given an array nums of size n and an integer k, find the length of the longest sub-array that sums to k. If no such sub-array exists, return 0. if the array contains only positives and zeroes
 public class Code_13 {
     private static int longestSubarray(int[] arr, int k){
-        HashMap<Integer, Integer> map = new HashMap<>();
-        int sum = 0;
         int maxLen = 0;
-        for(int i=0;i<arr.length;i++){
-            sum+=arr[i];
-            if(sum==k){
-                maxLen = i+1;
+        int sum = arr[0];
+        int left = 0;
+        int right = 0;
+        while(right<arr.length){
+            while(left <= right && sum > k){
+                sum -= arr[left];
+                left++;
             }
-            if(map.containsKey(sum-k)){
-                maxLen = Math.max(maxLen,map.get(sum-k));
+            if(sum == k){
+                maxLen = Math.max(maxLen, right-left+1);
             }
-            map.putIfAbsent(sum, i);
+            right++;
+            if(right < arr.length){
+                sum += arr[right];
+            }
         }
+        return maxLen;
     }
     public static void main(String[] args){
-        int[] arr = {-3, 2, 1};
-        System.out.println(longestSubarray(arr, 6));
+        int[] arr = {10, 5, 2, 7, 1, 9};
+        System.out.println(longestSubarray(arr, 15));
     }
 }
